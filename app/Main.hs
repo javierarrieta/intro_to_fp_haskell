@@ -21,8 +21,18 @@ either2Validated e = fromEither (left singleton e)
 roman2IntValidated :: (NonEmpty Char) -> Validation (NonEmpty String) (NonEmpty Int)
 roman2IntValidated l = traverse (romanChar2Int .> either2Validated) l
 
+fromListSafe :: [a] -> Maybe (NonEmpty a)
+fromListSafe [] = Nothing
+fromListSafe (head : tail) = Just (head :| tail)
+
+roman2MaybeInts :: String -> Maybe (Validation (NonEmpty String) (NonEmpty Int))
+roman2MaybeInts a = fmap roman2IntValidated (fromListSafe a)
+
+-- roman2Ints :: String -> Validation (NonEmpty String) (NonEmpty Int)
+
 main = do
   print(romanChar2Int 'C')
   print(romanChar2Int 'J')
-  print(roman2IntValidated (fromList "ABC"))
-  print(roman2IntValidated (fromList "MMXXII"))
+  print(roman2MaybeInts "ABC")
+  print(roman2MaybeInts "MMXXII")
+  print(roman2MaybeInts "")
