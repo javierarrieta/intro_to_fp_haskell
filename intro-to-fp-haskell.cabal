@@ -30,7 +30,7 @@ executable intro-to-fp-haskell
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
     build-depends:    
-        base ^>=4.15.1,
+        base >=4.15.1,
         validation ^>=1.1.2,
         flow ^>=2.0.0,
     hs-source-dirs:   app
